@@ -10,6 +10,17 @@ jQuery.widget('ui.autocombobox', {
         wrapper = jQuery('<span>').addClass('ui-autocombocontainer')
                                   .insertAfter(select);
 
+        openCloseAutocomplete = function () {
+            // close if already visible
+            if (input.autocomplete('widget').is(':visible')) {
+                input.autocomplete('close');
+                return;
+            }
+            // pass empty string as value to search for, displaying all results
+            input.autocomplete('search', '');
+            input.focus();
+        };
+        
         input = this.input = jQuery('<input>')
             .appendTo(wrapper)
             .addClass('ui-autocombobox')
@@ -66,10 +77,7 @@ jQuery.widget('ui.autocombobox', {
                     }
                 }
             })
-            .dblclick(function()
-            {
-                input.autocomplete('search', '');
-            });
+            .click(openCloseAutocomplete);
 
         input.data('autocomplete')._renderItem = function (ul, item)
         {
@@ -80,56 +88,30 @@ jQuery.widget('ui.autocombobox', {
                                       .append('<a>' + item.label + '</a>')
                                       .appendTo(ul);
         };
-
-        input.width(input.width() - 36);
-
-        jQuery('<button> </button>').attr('tabIndex', -1)
-                                    .attr('title', 'Voir tous les éléments')
-                                    .addClass('ui-autocombobutton')
-                                    .insertAfter(input)
-                                    .button({
-                                        icons : {
-                                            primary : 'ui-icon-triangle-1-s'
-                                        },
-                                        text : false
-                                    })
-                                    .removeClass('ui-corner-all')
-                                    .addClass('ui-corner-right')
-                                    .click(function () {
-                                        // close if already visible
-                                        if (input.autocomplete('widget').is(':visible')) {
-                                            input.autocomplete('close');
-                                            return;
-                                        }
-                                        // pass empty string as value to search for, displaying all results
-                                        input.autocomplete('search', '');
-                                        input.focus();
-                                    });
+        
+        button = jQuery('<button> </button>')
+                        .attr('tabIndex', -1)
+                        .attr('title', 'Voir tous les éléments')
+                        .addClass('ui-autocombobutton')
+                        .insertAfter(input)
+                        .button({
+                            icons : {
+                                primary : 'ui-icon-triangle-1-s'
+                            },
+                            text : false
+                        })
+                        .removeClass('ui-corner-all')
+                        .addClass('ui-corner-right')
+                        .click(openCloseAutocomplete);
+                                    
+        input.width(input.width() - button.outerWidth() - button.css('padding-left').replace('px', ''));
     },
     setValue : function(val) {
         this.select.val(val);
         text = this.select.children(':selected').text();
-        
-        var matcher = new RegExp('^' + jQuery.ui.autocomplete.escapeRegex(text) + '$', 'i'),
-        valid = false;
-        this.select.children('option').each(function () {
-            if (jQuery(this).text().match(matcher)) {
-                this.selected = valid = true;
-                return false;
-            }
-        });
-        if (!valid) {
-            // remove invalid value, as it didn't match anything
-            jQuery(this).val('');
-            this.select.val('');
-            this.input.data('autocomplete').term = '';
-            return false;
-        }
-        else
-        {
-            this.input.val(text);
-            this.input.data('autocomplete').term = text;
-        }
+
+        this.input.val(text);
+        this.input.data('autocomplete').term = text;
     },
     destroy : function () {
         this.wrapper.remove();

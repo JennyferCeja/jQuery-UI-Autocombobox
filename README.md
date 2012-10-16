@@ -9,7 +9,6 @@ Original &lt;select>&lt;/select> element is also kept up-to-date by the autocomp
 
 ## Usage
 
-
 This creates the autocomplete combobox
 
     jQuery('#mySelect').autocombobox();
@@ -25,6 +24,8 @@ This returns the value of the selected &lt;option>&lt;/option> element
 
     
 ## Compatibility
+
+Tested with jQuery 1.7.2 and jQueryUI 1.8.18
 
 Works well on
 
