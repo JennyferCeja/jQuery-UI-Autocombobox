@@ -20,7 +20,7 @@ jQuery.widget('ui.autocombobox', {
             input.autocomplete('search', '');
             input.focus();
         };
-        
+
         input = this.input = jQuery('<input>')
             .appendTo(wrapper)
             .addClass('ui-autocombobox')
@@ -88,7 +88,7 @@ jQuery.widget('ui.autocombobox', {
                                       .append('<a>' + item.label + '</a>')
                                       .appendTo(ul);
         };
-        
+
         button = jQuery('<button> </button>')
                         .attr('tabIndex', -1)
                         .attr('title', 'Voir tous les éléments')
@@ -103,8 +103,18 @@ jQuery.widget('ui.autocombobox', {
                         .removeClass('ui-corner-all')
                         .addClass('ui-corner-right')
                         .click(openCloseAutocomplete);
-                                    
+
         input.width(input.width() - button.outerWidth() - button.css('padding-left').replace('px', ''));
+
+        // Creates default value and sets elements with it
+        jQuery('<option> </option>').attr('value', '')
+                                    .prependTo(select);
+
+        select.val('');
+        text = select.children(':selected').text();
+
+        input.val('');
+        input.data('autocomplete').term = '';
     },
     setValue : function(val) {
         this.select.val(val);

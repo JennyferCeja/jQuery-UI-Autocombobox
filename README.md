@@ -5,7 +5,9 @@ This project is a jQuery-UI Autocomplete field using the &lt;option>&lt;/option>
 
 It permits autocompletion on textual values within the &lt;option>&lt;/option> elements while using &lt;option>&lt;/option> "val" attribute as the real value of the autocomplete combobox
 
-Original &lt;select>&lt;/select> element is also kept up-to-date by the autocomplete combobox and must contains at least an &lt;option val="">&lt;/option> element which will be used when no value matches the searched text
+Original &lt;select>&lt;/select> element is also kept up-to-date by the autocomplete combobox.
+
+A default &lt;option val="">&lt;/option> element is created by the plugin to hold null value when no value matches the searched text
 
 ## Usage
 
