@@ -1,0 +1,26 @@
+
+.ui-autocombocontainer {
+    display: block;
+}
+
+.ui-autocombobox { 
+    color: #444;
+    width: 100%;
+    border: 1px solid #CCC;
+    padding: 2px;
+    font-family: "Trebuchet MS",Verdana,Helvetica,Sans-Serif;
+    font-size: 1.2em;
+}
+
+.ui-autocombobutton {
+    padding: 6px;
+    margin-bottom: -7px;
+    margin-left: -1px;
+}
+
+.ui-autocombolist {
+    overflow-y: auto;
+    max-height: 200px;
+    font-size: 1em;
+    font-family: "Trebuchet MS",Verdana,Helvetica,Sans-Serif;
+}
